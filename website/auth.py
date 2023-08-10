@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for
-from website.forms import LoginForm
+from flask import Blueprint, render_template, redirect, url_for, flash
+from website.forms import LoginForm, RegistrationForm
 
 auth = Blueprint("auth", __name__)
 
@@ -20,4 +20,9 @@ def logout():
 
 @auth.route("/sign-up", methods=["GET", "POST"])
 def signup():
-    return render_template("sign_up.html")
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = form.username.data
+        flash("Account created.", category="success")
+        return redirect(url_for("auth.login"))
+    return render_template("sign_up.html", form=form)
