@@ -6,4 +6,7 @@ Home
 
 {% block content%}
 <h1>Home Page</h1>
+{% if user %}
+{{ user }}
+{% endif %}
 {% endblock %}
