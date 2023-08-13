@@ -7,4 +7,20 @@ Home
 {% block content%}
 <h1>Home Page</h1>
 <h1>Hi, {{ current_user.username }}!</h1>
+{% for note in user.posts %}
+{{ note.data }}
+<button type="button" onclick="deleteNote({{ note.id }})">Delete</button>
+<br>
+{% endfor %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.note.label }}<br>
+        {{ form.note() }}
+        {% for error in form.note.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}
